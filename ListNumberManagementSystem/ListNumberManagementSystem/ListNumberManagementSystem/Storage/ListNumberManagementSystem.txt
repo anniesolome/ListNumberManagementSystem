@@ -1,0 +1,56 @@
+--Script for Creating Database
+create database Employee
+use Employee
+
+--Script For Creating EmployeeList table
+create table EmployeeList(EmpID int identity,Username varchar(50), Identifier int,Firstname varchar(50),Lastname varchar(50),ItemID int)
+
+
+--Stored procedure for Inserting Data in table
+
+create procedure Insert_EmployeeList(@Username varchar(50),  
+           @Identifier int, 
+           @Firstname varchar(50), 
+           @Lastname varchar(50))
+		   as begin
+INSERT INTO [dbo].[EmployeeList]
+           ([Username]
+           ,[Identifier]
+           ,[Firstname]
+           ,[Lastname]
+           )
+     VALUES
+           (@Username,  
+           @Identifier, 
+           @Firstname, 
+           @Lastname 
+           )
+end
+
+
+--Stored procedure for selecting data from table
+ create procedure Get_EmployeeList  
+as begin  
+select top 8 s.Username as ListNumber,FirstName,LastName from [EmployeeList] s where s.ItemID is null  
+end
+
+
+---Stored procedure for Updating the data
+create procedure Update_EmployeeList(@Username varchar(50),@ItemID varchar(50))  
+     as begin  
+update  [dbo].[EmployeeList]  
+set ItemID=@ItemID where Username=@Username  
+              
+end  
+  
+  
+  
+
+--Stored procedure for Getting Item ID
+create procedure Get_ItemID
+as begin
+select distinct s.ItemID from [EmployeeList] s where s.ItemID is not null
+end
+
+ 
+ 
